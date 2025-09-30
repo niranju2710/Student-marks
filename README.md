@@ -1,6 +1,4 @@
-
-
-    #include <stdio.h>
+#include <stdio.h>
 
 // Function declarations
 int add(int a, int b) { return a + b; }
