@@ -1,25 +1,26 @@
-# Student-marks
-To calculate the total students marks
-#include <stdio.h>
+
+
+    #include <stdio.h>
 
 // Function declarations
 int add(int a, int b) { return a + b; }
 int subtract(int a, int b) { return a - b; }
 int multiply(int a, int b) { return a * b; }
-int divide(int a, int b) { 
+float divide(int a, int b) { 
     if(b != 0) 
-        return a / b; 
+        return (float)a / b; 
     else {
         printf("Error! Division by zero.\n");
-        return 0;
+        return 0.0;
     }
 }
 
 int main() {
-    int choice, a, b, result;
+    int choice, a, b;
+    float result;
     
     // Array of function pointers
-    int (*operation[])(int, int) = {add, subtract, multiply, divide};
+    void *operation[] = {add, subtract, multiply, divide};
 
     printf("Simple Calculator using Function Pointers\n");
     printf("1. Add\n2. Subtract\n3. Multiply\n4. Divide\n");
@@ -34,8 +35,12 @@ int main() {
     printf("Enter two numbers: ");
     scanf("%d %d", &a, &b);
 
-    // Call the chosen function through pointer
-    result = operation[choice - 1](a, b);
-    printf("Result: %d\n", result);
+    if(choice == 4)  // Division
+        result = ((float(*)(int,int))operation[3])(a, b);
+    else
+        result = ((int(*)(int,int))operation[choice - 1])(a, b);
+
+    printf("Result: %.2f\n", result);
 
     return 0;
+}
